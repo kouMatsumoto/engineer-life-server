@@ -8,6 +8,9 @@
     "npm": ">=4.2.0"
   },
   "scripts": {
+    "dev-tsc": "tsc -p ./tsconfig.json -w",
+    "lint": "tslint -p ./tslint.json",
+    "server": "NODE_ENV=development node ./server/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -26,14 +29,12 @@
     "koa": "^2.2.0",
     "koa-bodyparser": "^4.2.0",
     "koa-router": "^7.1.1",
-    "koa-static": "^3.0.0",
     "winston": "^2.3.1"
   },
   "devDependencies": {
     "@types/koa": "^2.0.39",
     "@types/koa-bodyparser": "^3.0.23",
     "@types/koa-router": "^7.0.22",
-    "@types/koa-static": "^2.0.22",
     "@types/winston": "^2.3.1",
     "tslint": "^5.1.0",
     "typescript": "^2.3.2"
