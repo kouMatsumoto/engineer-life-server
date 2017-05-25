@@ -1,0 +1,25 @@
+{
+  "name": "engineer-life-server",
+  "version": "0.0.0",
+  "description": "The web-server of EngineerLife",
+  "main": "index.js",
+  "engines": {
+    "node": ">=7.6.0",
+    "npm": ">=4.2.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kouMatsumoto/engineer-life-server.git"
+  },
+  "keywords": [],
+  "author": "Kou Matsumoto",
+  "license": "UNLICENSED",
+  "private": true,
+  "bugs": {
+    "url": "https://github.com/kouMatsumoto/engineer-life-server/issues"
+  },
+  "homepage": "https://github.com/kouMatsumoto/engineer-life-server#readme"
+}
