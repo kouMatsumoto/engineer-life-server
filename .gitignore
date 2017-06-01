@@ -57,3 +57,16 @@ typings/
 # dotenv environment variables file
 .env
 
+# IDE
+.idea
+
+# ignore typescript transpile result
+config/**/*.js
+config/**/*.js.map
+log/**/*.js
+log/**/*.js.map
+server/**/*.js
+server/**/*.js.map
+
+# ignore log files
+log/**/*.log
