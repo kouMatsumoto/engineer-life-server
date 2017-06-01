@@ -1,6 +1,7 @@
 import * as Router from 'koa-router';
 import { Record } from '../../models/record/record.model';
 import { makeApiResult } from '../../lib/make-api-result';
+import { makeApiErrorResult } from '../../lib/make-api-error-result';
 
 const apiV1Router = new Router();
 
@@ -14,7 +15,7 @@ apiV1Router.use(async (ctx, next) => {
     await next();
   } catch (e) {
     ctx.status = e.status || 500;
-    ctx.body = e.message;
+    ctx.body = makeApiErrorResult(e);
   }
 });
 
