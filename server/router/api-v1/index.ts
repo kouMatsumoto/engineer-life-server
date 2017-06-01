@@ -1,5 +1,7 @@
 import * as Router from 'koa-router';
 import { Record } from '../../models/record/record.model';
+import { makeApiResult } from '../../lib/make-api-result';
+import { makeApiErrorResult } from '../../lib/make-api-error-result';
 
 const apiV1Router = new Router();
 
@@ -13,7 +15,7 @@ apiV1Router.use(async (ctx, next) => {
     await next();
   } catch (e) {
     ctx.status = e.status || 500;
-    ctx.body = e.message;
+    ctx.body = makeApiErrorResult(e);
   }
 });
 
@@ -22,14 +24,16 @@ apiV1Router.use(async (ctx, next) => {
  * return all records array json.
  */
 apiV1Router.get('/records/', async (ctx) => {
-  ctx.body = await Record.fetchAll();
+  const records = await Record.fetchAll();
+  ctx.body = makeApiResult(records, 'All records are found.');
 });
 
 /**
  * create a new record
  */
 apiV1Router.post('/records/', async (ctx) => {
-  ctx.body = await Record.createOne(ctx.request.body);
+  const record = await Record.createOne(ctx.request.body);
+  ctx.body = makeApiResult(record, 'A new record is created.');
 });
 
 
