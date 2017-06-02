@@ -34,6 +34,14 @@ recordSchema.static({
   },
   fetchOneById: function(id: string) {
     return this.findById(id).exec();
+  },
+  updateOneById: function (id: string, update: any) {
+    // @todo: update options
+    // @see: http://mongoosejs.com/docs/api.html#model_Model.findByIdAndUpdate
+    const options = {
+      new: true
+    };
+    return this.findByIdAndUpdate(id, update, options);
   }
 });
 

@@ -54,6 +54,22 @@ apiV1Router.get('/records/:id', async (ctx) => {
   }
 });
 
+apiV1Router.put('/records/:id', async (ctx) => {
+  try {
+    const targetId = ctx.params['id'];
+    const update = ctx.request.body;
+
+    const record = await Record.updateOneById(targetId, update);
+    ctx.body = makeApiResult(record, 'A record which has requested id is updated');
+  } catch (e) {
+    // handle error if needed. (such as making MongooseError proper)
+    //
+    // when errors will be thrown
+    //   - {MongooseError}: when invalid id (failed to cast to ObjectId).
+    //   - {MongooseError}: when failed to validation.
+    ctx.throw(e);
+  }
+});
 
 export {
   apiV1Router
