@@ -22,5 +22,8 @@ export interface RecordDocument extends IRecord, Document {
 
 export interface RecordModel extends Model<RecordDocument> {
   createOne(data: IRecordSeed): Promise<RecordDocument>;
+  deleteOneById(id: string): Promise<RecordDocument>;
   fetchAll(): Promise<RecordDocument[]>;
+  fetchOneById(id: string): Promise<RecordDocument>;
+  updateOneById(id: string, update: any): Promise<RecordDocument>;
 }
