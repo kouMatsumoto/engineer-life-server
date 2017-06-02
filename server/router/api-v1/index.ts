@@ -30,6 +30,8 @@ apiV1Router.get('/records/', async (ctx) => {
 
 /**
  * create a new record from posted data, and respond with it.
+ *
+ * @todo: need to handle error when failed to create data.
  */
 apiV1Router.post('/records/', async (ctx) => {
   const record = await Record.createOne(ctx.request.body);
