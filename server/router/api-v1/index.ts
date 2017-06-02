@@ -29,13 +29,66 @@ apiV1Router.get('/records/', async (ctx) => {
 });
 
 /**
- * create a new record
+ * create a new record from posted data, and respond with it.
+ *
+ * @todo: need to handle error when failed to create data.
  */
 apiV1Router.post('/records/', async (ctx) => {
   const record = await Record.createOne(ctx.request.body);
   ctx.body = makeApiResult(record, 'A new record is created.');
 });
 
+/**
+ * return a specific record by id.
+ */
+apiV1Router.get('/records/:id', async (ctx) => {
+  try {
+    const searchTargetId = ctx.params['id'];
+    const record = await Record.fetchOneById(searchTargetId);
+    ctx.body = makeApiResult(record, 'A record is found.');
+
+  } catch (e) {
+    // when errors will be thrown
+    //   - {MongooseError}: when invalid id (failed to cast to ObjectId).
+    ctx.throw(e);
+  }
+});
+
+apiV1Router.put('/records/:id', async (ctx) => {
+  try {
+    const targetId = ctx.params['id'];
+    const update = ctx.request.body;
+
+    const record = await Record.updateOneById(targetId, update);
+    ctx.body = makeApiResult(record, 'A record which has requested id is updated');
+  } catch (e) {
+    // handle error if needed. (such as making MongooseError proper)
+    //
+    // when errors will be thrown
+    //   - {MongooseError}: when invalid id (failed to cast to ObjectId).
+    //   - {MongooseError}: when failed to validation.
+    ctx.throw(e);
+  }
+});
+
+apiV1Router.delete('/records/:id', async (ctx) => {
+  try {
+    const targetId = ctx.params['id'];
+
+    // throw error when invalid id passed.
+    const record = await Record.deleteOneById(targetId);
+
+    // when record has been deleted already.
+    if (record === null) {
+      throw new Error('A record which has requested id has been deleted already.');
+    }
+
+    ctx.body = makeApiResult(record, 'A record which has requested id is deleted');
+  } catch (e) {
+    // handle error if needed. (such as making MongooseError proper)
+    ctx.throw(e);
+  }
+});
 
 export {
   apiV1Router
