@@ -31,6 +31,9 @@ recordSchema.static({
   },
   fetchAll: function() {
     return this.find().exec();
+  },
+  fetchOneById: function(id: string) {
+    return this.findById(id).exec();
   }
 });
 

@@ -36,6 +36,22 @@ apiV1Router.post('/records/', async (ctx) => {
   ctx.body = makeApiResult(record, 'A new record is created.');
 });
 
+/**
+ * return a specific record by id.
+ */
+apiV1Router.get('/records/:id', async (ctx) => {
+  try {
+    const searchTargetId = ctx.params['id'];
+    const record = await Record.fetchOneById(searchTargetId);
+    ctx.body = makeApiResult(record, 'A record is found.');
+
+  } catch (e) {
+    // when errors will be thrown
+    //   - {MongooseError}: when invalid id (failed to cast to ObjectId).
+    ctx.throw(e);
+  }
+});
+
 
 export {
   apiV1Router
