@@ -1,8 +1,8 @@
-import { Schema, model } from 'mongoose';
+import { Schema, model, SchemaDefinition, SchemaOptions } from 'mongoose';
 import { IRecordSeed, RecordDocument, RecordModel } from './record.interface';
 
 
-export const recordSchema = new Schema({
+const schemaDefinition: SchemaDefinition = {
   date: {
     type: Date,
     default: new Date(),
@@ -23,7 +23,20 @@ export const recordSchema = new Schema({
     trim: true,
     required: true
   }
-});
+};
+
+const schemaOptions: SchemaOptions = {
+  toJSON: {
+    virtuals: true,
+    transform: function(_doc: RecordDocument, ret: any) {
+      delete ret._id;
+      delete ret.__v;
+    }
+  }
+};
+
+export const recordSchema = new Schema(schemaDefinition, schemaOptions);
+
 
 recordSchema.static({
   createOne: function(data: IRecordSeed) {
