@@ -1,6 +1,6 @@
 {
   "name": "engineer-life-server",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "The web-server of EngineerLife",
   "main": "index.js",
   "engines": {
