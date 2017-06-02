@@ -71,6 +71,25 @@ apiV1Router.put('/records/:id', async (ctx) => {
   }
 });
 
+apiV1Router.delete('/records/:id', async (ctx) => {
+  try {
+    const targetId = ctx.params['id'];
+
+    // throw error when invalid id passed.
+    const record = await Record.deleteOneById(targetId);
+
+    // when record has been deleted already.
+    if (record === null) {
+      throw new Error('A record which has requested id has been deleted already.');
+    }
+
+    ctx.body = makeApiResult(record, 'A record which has requested id is deleted');
+  } catch (e) {
+    // handle error if needed. (such as making MongooseError proper)
+    ctx.throw(e);
+  }
+});
+
 export {
   apiV1Router
 };

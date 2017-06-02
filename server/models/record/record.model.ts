@@ -29,6 +29,9 @@ recordSchema.static({
   createOne: function(data: IRecordSeed) {
     return this.create(data);
   },
+  deleteOneById: function (id: string) {
+    return this.findByIdAndRemove(id);
+  },
   fetchAll: function() {
     return this.find().exec();
   },
